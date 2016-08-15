@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>test</title>
+    <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/plugins/datatables/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#user').DataTable({
+                "ajax": {
+                    "url": "/user/findAll",
+                    'type': 'POST',
+
+                },
+                "columns": [
+                    { "data": "id" },
+                    { "data": "name" },
+                    { "data": "email" },
+                    { "data": "telphoneNum" },
+                    { "data": "createDate" },
+                    { "data": "lastChanged" }
+                ],
+                "columnDefs": [
+                    {
+                        "targets": [5],
+                        "data": "id",
+                        "render": function(data, type, full) {
+                            return "<a href='/delete?id=" + data + "' onclick='deletedefined()'>删除</a><a href='/delete?id=" + data + "'>查看</a>";
+                        }
+                    }
+                ],
+            });
+        });
+
+
+
+    </script>
+</head>
+<body>
+    <h3>user信息</h3>
+    <div>
+        <table id="user" cellpadding="1" cellspacing="0">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>tel</th>
+                <th>createDate</th>
+                <th>lastChanged</th>
+                <th>Operation</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+</html>
